@@ -14,9 +14,10 @@
 <body>
     <nav>
         <strong>MioSito:</strong>
+        {% include "AceMenu.html" %}
         <a href="/">Home</a> |<a href="/menu">Menu</a> | <a href="/about">About</a> | <a href="/lacasailpaese">La nostra Casa - Il Paese</a>
     </nav>
-    </nav>
+    
 
     <main>
         {% block content %}{% endblock content %}
