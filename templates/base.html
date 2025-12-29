@@ -32,9 +32,13 @@
        
     <main>
     
-        {% block content %}{% endblock content %}
+        {% block content %}
+         
+        {% endblock content %}
+       <span style="position: absolute; margin-top: -29%;margin-left:24% ; float:left;">{% include "AceMenu.html" %}</span> 
     </main>     
     
+
     <footer>
         <p>&copy; 2025 - Creato con Rust e Tera</p>
     </footer>

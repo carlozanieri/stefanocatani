@@ -78,14 +78,7 @@ struct BaseContext {
     submenu: Vec<Submenus>,
     links: Vec<Links>,
     slide: Vec<Slider>,
-    
  
-}
-#[derive(Serialize)]
-struct BaseContexts {
-    slide: Vec<Slider>,
-    
-  
 }
 
 
