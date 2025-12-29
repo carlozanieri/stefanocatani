@@ -25,16 +25,19 @@
         footer { margin-top: 50px; font-size: 0.8em; color: gray; }
     </style>
 </head>
+
 <body>
     
-        {% include "AceMenu.html" %}
+        
        
     <main>
+    
         {% block content %}{% endblock content %}
-    </main>
-
+    </main>     
+    
     <footer>
         <p>&copy; 2025 - Creato con Rust e Tera</p>
     </footer>
+    
 </body>
 </html>
