@@ -9,8 +9,8 @@
     <div class="slides">
         {% for s in sliders %}
         <div class="slide-card" style="border: 1px solid #ddd; margin-bottom: 20px; padding: 10px;">
-            <img src="/static/img/index/{{ s.img }}" alt="{{ s.titolo }}" style="max-width: 100%; height: auto;">
-            
+            <img style= "width: 100%; "  src= "/static/img/index/{{ s.img }}" alt="" title="{{s.caption}}" />
+
             <h2>{{ s.titolo }}</h2>
             <h4>{{ s.img }}</h4>
             <p>{{ s.caption }}</p>
