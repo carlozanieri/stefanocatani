@@ -1,20 +1,8 @@
-//use askama::Template;
-//use axum::Router;
 use axum::{extract::State, response::{Html, IntoResponse}, routing::get, Router};
-//use rusqlite::{params, Connection, Result};
-//use rusqlite::{Connection,named_params};
 use sqlx::{SqlitePool, FromRow};
-//use tera::Tera;
-//use std::sync::Arc;
-//use tera::Tera;
 use std::sync::Arc;
 use tera::Tera;
-//use std::sync::Arc;
-//use std::task::Context;
-use tera::Context;
 use serde::Serialize;
-//use std::sync::{Arc};
-//use tera::{Context, Tera};
 use tower_http::services::ServeDir;
 
 //newuse
@@ -67,7 +55,7 @@ struct Submenus{
 
 struct AppState {
     db: SqlitePool,
-    tera: tera::Tera,
+    //tera: tera::Tera,
     templates: Tera,
     
 }
@@ -85,19 +73,18 @@ struct BaseContext {
 #[tokio::main]
 async fn main()  {
     // 1. Inizializza SQLite e crea una tabella di prova
-    let db_path = "stefanocatani.sqlite";
+    //let db_path = "stefanocatani.sqlite";
     
-    let tera = Tera::new("templates/**/*").expect("Errore template");
+   // let tera = Tera::new("templates/**/*").expect("Errore template");
     let templates  = Tera::new("templates/**/*").expect("Errore template");
     let db = SqlitePool::connect("sqlite:stefanocatani.sqlite").await.unwrap();
     let shared_state = Arc::new(AppState {
         db,
-        tera,
+        //tera,
         templates,
     });
 
-
-       let app = Router::new()
+    let app = Router::new()
         .route("/", get(home_handler))
         .route("/about", get(about_handler))
         .route("/menu", get(menu_handler))
@@ -133,9 +120,9 @@ let codice = "index";
 
 async fn lacasailpaese_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse {
     
-use axum::{extract::State, response::Html};
+//use axum::{extract::State, response::Html};
 use tera::Context;
-use std::sync::Arc;
+//use std::sync::Arc;
     let base =  get_base_context(&state.db).await;
 let codice = "index";
 //let slider: BaseContext = get_slide_context(&state.db, &codice).await?;
@@ -153,9 +140,9 @@ let codice = "index";
 }
 
 async fn menu_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse {
-use axum::{extract::State, response::Html};
+//use axum::{extract::State, response::Html};
 use tera::Context;
-use std::sync::Arc;
+//use std::sync::Arc;
 let base =  get_base_context(&state.db).await;
 let codice = "index";
     // 2. Crea il contesto per Tera e inserisci i dati comuni
@@ -172,8 +159,14 @@ let codice = "index";
 }
 
 async fn about_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse {
- let base =  get_base_context(&state.db).await;
- let codice = "index";
+//use axum::{extract::State, response::Html};
+use tera::Context;
+ 
+let base =  get_base_context(&state.db).await;
+let codice = "index";
+//let slider: BaseContext = get_slide_context(&state.db, &codice).await?;
+
+    // 2. Crea il contesto per Tera e inserisci i dati comuni
     let mut ctx = Context::new();
     ctx.insert("menu", &base.menu);
     ctx.insert("submenu", &base.submenu);
@@ -181,7 +174,7 @@ async fn about_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse 
     ctx.insert("links", &base.links);
     ctx.insert("pagina_titolo", "Home Page");
     
-    let rendered = state.templates.render("about.html", &ctx).unwrap();
+    let rendered = state.templates.render("modal.html", &ctx).unwrap();
     Html(rendered)
 }
 
