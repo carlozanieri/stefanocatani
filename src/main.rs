@@ -87,6 +87,7 @@ async fn main()  {
     let app = Router::new()
         .route("/", get(home_handler))
         .route("/about", get(about_handler))
+        .route("/prenotazioni", get(prenotazioni_handler))
         .route("/menu", get(menu_handler))
         .route("/lacasailpaese", get(lacasailpaese_handler))
         .nest_service("/static", ServeDir::new("static"))
@@ -175,6 +176,26 @@ let codice = "index";
     ctx.insert("pagina_titolo", "Home Page");
     
     let rendered = state.templates.render("modal.html", &ctx).unwrap();
+    Html(rendered)
+}
+
+async fn prenotazioni_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse {
+//use axum::{extract::State, response::Html};
+use tera::Context;
+ 
+let base =  get_base_context(&state.db).await;
+let codice = "index";
+//let slider: BaseContext = get_slide_context(&state.db, &codice).await?;
+
+    // 2. Crea il contesto per Tera e inserisci i dati comuni
+    let mut ctx = Context::new();
+    ctx.insert("menu", &base.menu);
+    ctx.insert("submenu", &base.submenu);
+    ctx.insert("sliders", &base.slide);
+    ctx.insert("links", &base.links);
+    ctx.insert("pagina_titolo", "Home Page");
+    
+    let rendered = state.templates.render("prenotazioni.html", &ctx).unwrap();
     Html(rendered)
 }
 
